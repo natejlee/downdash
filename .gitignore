@@ -1,0 +1,27 @@
+### node etc ###
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Dependency directories
+# Deployed apps should consider commenting these lines out:
+# see https://npmjs.org/doc/faq.html#Should-I-check-my-node_modules-folder-into-git
+node_modules/
+npm-debug.log
+.sass-cache
+*.env
+
+# Hidden Files
+.DS_Store
+*/.DS_Store
+
+server/config.js
+
+.floo
+.flooignore
