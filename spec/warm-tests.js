@@ -1,4 +1,4 @@
-describe('Downdash-Easy Methods', function(){
+describe('Downdash-Warm Methods', function(){
 
   describe('_.each', function(){
 
