@@ -1,9 +1,126 @@
 describe('Collection Methods', function(){
+
+  describe('_.each', function(){
+    var arr = ['a','b','c'];
+    var obj = {a: 1, b: 2, c: 3};
+
+    it('should iterate over arrays invoking iterator with the value, index/key, and collection', function() {
+      var result = [];
+      var iterator = function(value, index, collection){
+        result.push([value, index, collection]);
+      };
+
+      _.each(arr, iterator);
+
+      expect(result).toEqual([
+        ['a', 0, arr],
+        ['b', 1, arr], 
+        ['c', 2, arr],
+      ]);
+    });
+
+    it('should only iterate over array elements and not properties', function() {
+      var result = [];
+      var iterator = function(value, index, collection){
+        result.push([value, index, collection]);
+      };
+      arr.dontIterate = 'overMe';
+
+      _.each(arr, iterator);
+
+      expect(result).toEqual([
+        ['a', 0, arr],
+        ['b', 1, arr], 
+        ['c', 2, arr],
+      ]);
+    });
+
+    it('should iterate over objects invoking iterator with the value, index/key, and collection', function() {
+      var result = [];
+      var iterator = function(value, index, collection){
+        result.push([value, index, collection]);
+      };
+
+      _.each(obj, iterator);
+      expect(result).toEqual([
+        [1, 'a', obj],
+        [2, 'b', obj],
+        [3, 'c', obj],
+      ]);
+    });
+
+  });
+
+  describe('_.map', function() {
+    var arr = [1,2,3];
+    var obj = {'a': 1, 'b': 2, 'c': 3};
+    var timesTwo = function(n){
+      return n * 2;
+    };
+    
+    it('should return an array', function() {
+      expect(Array.isArray(_.map(obj, function(){}))).toBeTruthy();
+    });
+    
+    it('should not modify the input array', function() {
+      _.map(arr, timesTwo);
+      expect(arr).toEqual([1,2,3]);
+    });
+
+    it('should iterate over collections invoking iterator with the value, index/key, and collection', function(){
+      var result = _.map(arr, timesTwo);
+      expect(result).toEqual([2,4,6]);
+      result = _.map(obj, timesTwo);
+      expect(result).toEqual([2,4,6]);
+    });
+  });
+
+  describe('_.reduce', function(){
+    var arr = [1,2,3];
+
+    var sumNums = function(total, n){
+      return total + (n*n);
+    };
+
+    it('should accumulate an array to a single value determined by the callback', function() {
+      expect(_.reduce(arr, sumNums, 0)).toBe(14);
+    });
+
+    it('should use the first element in the collection as accumulator if none is provided', function() {
+      expect(_.reduce(arr, sumNums)).toBe(14);
+    });
+    it('should not invoke the iterator over the first element in no accumulator is provided', function() {
+      expect((_.reduce([2,3], sumNums))).toBe(11);
+    });
+    it('should invoke the iterator over the first element if an accumlator is provided', function() {
+      expect((_.reduce([2,3], sumNums, 0))).toBe(13);
+    });
+  });
+
+  describe('_.filter', function() {
+    var arr = [1,2,3];
+    var isEven = function(n){
+      return n % 2 === 0;
+    };
+    
+    it('should return an array', function() {
+      expect(Array.isArray(_.filter(arr, isEven))).toBeTruthy();
+    });
+
+    it('should return all elements predicate returns truthy for', function() {
+      expect(_.filter(arr, isEven)).toEqual([2]);
+    });
+
+    it('should not modify the input array', function() {
+      _.filter(arr, isEven);
+      expect(arr).toEqual([1,2,3]);
+    });
+  });
   
   describe('_.at', function(){
 
     it('should return an array', function() {
-      expect(Array.isArray(_.at([]))).toEqual(true);
+      expect(Array.isArray(_.at([]))).toBeTruthy(true);
     });
 
     it('should return the elements corresponding to given keys or indices', function() {
@@ -18,26 +135,7 @@ describe('Collection Methods', function(){
       expect(_.at([1,2,3,4], [0, 2])).toEqual([1,3]);
     });
   });
-
-  describe('_.countBy', function(){
-    var numFloor = function(n){
-      return Math.floor(n);
-    };
-
-    it('should return an object', function() {
-      expect(typeof (_.countBy([1,1,2,2,3,3], numFloor))).toEqual('object');
-    });
-
-    it('should return an object with keys corresponding to the results of the iteratee', function() {
-      expect(_.countBy([1,1,2,2], numFloor)).toEqual({'1': 2, '2': 2});
-    });
-
-    it('should return an object with values that match the number of times the key was returned', function() {
-      expect(_.countBy([1,1,1,2,3,3], numFloor)).toEqual({'1': 3, '2': 1, '3': 2});
-    });
-
-
-  });
+  
   describe('_.every', function() {
     var predicator = function(value){
       return value ? true : false;
@@ -48,7 +146,7 @@ describe('Collection Methods', function(){
     };
 
     it('should return a boolean value', function() {
-      expect(typeof _.every([true, 'test', 1], predicator)).toEqual('boolean');
+      expect(typeof _.every([true, 'test', 1], predicator)).toBe('boolean');
     });
 
     it('should return true if all elements return true', function() {
