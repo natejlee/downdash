@@ -22,6 +22,17 @@
   };
 
 /*
+  _.indexOf
+
+  Example:
+    _.indexOf([1, 2, 1, 2], 2);
+    >>> 1
+*/
+  _.indexOf = function(array, value){
+
+  };
+
+/*
   _.map
 
   Example:
@@ -73,7 +84,6 @@
 
   };
 
-
 /*
   _.every
 
@@ -87,25 +97,6 @@
 
   };
 
-
-
-/*
-  _.findWhere
-
-  Example:
-    var users = [
-      { 'user': 'barney', 'age': 36, 'active': true },
-      { 'user': 'fred',   'age': 40, 'active': false }
-    ];
-
-    _.result(_.findWhere(users, { 'age': 36, 'active': true }), 'user');
-    >>> 'barney'
-*/
-  _.findWhere = function(collection, source){
-
-  };
-
-
 /*
   _.includes
 
@@ -117,7 +108,6 @@
 
   };
 
-
 /*
   _.partition
 
@@ -128,36 +118,6 @@
     >>> [[1, 3], [2]]
 */
   _.partition = function(collection, predicate){
-
-  };
-
-/*
-  _.pluck
-
-  Example:
-    var users = [
-      { 'user': 'barney', 'age': 36 },
-      { 'user': 'fred',   'age': 40 }
-    ];
-
-    _.pluck(users, 'user');
-    >>> ['barney', 'fred']
-*/
-  _.pluck = function(collection, path){
-
-  };
-
-
-/*
-  _.reject
-
-  Example:
-    _.reject([1, 2, 3, 4], function(n) {
-      return n % 2 == 0;
-    });
-    >>> [1, 3]
-*/
-  _.reject = function(collection, predicate){
 
   };
 
