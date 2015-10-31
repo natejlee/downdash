@@ -18,7 +18,15 @@
     >>> 2
 */
   _.each = function(collection, iterator){
-
+    if(Array.isArray(collection)){
+      for(var i = 0; i < collection.length; i++){
+        iterator(collection[i], i, collection);
+      }
+    }else{
+      for(var prop in collection){
+        iterator(collection[prop], prop, collection);
+      }
+    }
   };
 
 /*
@@ -29,7 +37,13 @@
     >>> 1
 */
   _.indexOf = function(array, value){
-
+    var result = -1;
+    _.each(array, function(element, index){
+      if(element === value && result === -1){
+        result = index;
+      }
+    });
+    return result;
   };
 
 /*
@@ -44,7 +58,11 @@
     >>> [3, 6]
 */
   _.map = function(collection, iterator){
-
+    var result = [];
+    _.each(collection, function(element){
+      result.push(iterator(element));
+    });
+    return result;
   };
   
 /*
@@ -57,7 +75,10 @@
     >>> 3
 */
   _.reduce = function(collection, iterator, accumulator){
-
+    _.each(collection, function(element){
+      accumulator = accumulator === undefined ? element : iterator(accumulator, element);
+    });
+    return accumulator;
   };
 
 /*
@@ -70,18 +91,13 @@
     >>> [4, 6]
 */
   _.filter = function(collection, predicate){
-
-  };
-
-/*
-  _.at
-
-  Example:
-    _.at(['a', 'b', 'c'], [0, 2]);
-    >>> ['a', 'c']
-*/
-  _.at = function(collection){
-
+    var result = [];
+    _.each(collection, function(element){
+      if(predicate(element)){
+        result.push(element);
+      }
+    });
+    return result;
   };
 
 /*
@@ -94,7 +110,13 @@
     >>> false
 */
   _.every = function(collection, predicate){
-
+    var result = true;
+    _.each(collection, function(element){
+      if(!predicate(element)){
+        result = false;
+      }
+    });
+    return result;
   };
 
 /*
@@ -105,7 +127,12 @@
     >>> true
 */
   _.includes = function(collection, target){
-
+    return _.reduce(collection, function(accumulator, element){
+      if(accumulator){
+        return true;
+      }
+      return element === target;
+    }, false);
   };
 
 /*
@@ -118,7 +145,15 @@
     >>> [[1, 3], [2]]
 */
   _.partition = function(collection, predicate){
-
+    var result = [[], []];
+    _.each(collection, function(element){
+      if(predicate(element)){
+        result[0].push(element);
+      }else{
+        result[1].push(element);
+      }
+    });
+    return result;
   };
 
 }());

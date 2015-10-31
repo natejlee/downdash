@@ -139,25 +139,6 @@ describe('Downdash-Easy Methods', function(){
     });
   });
   
-  describe('_.at', function(){
-
-    it('should return an array', function() {
-      expect(Array.isArray(_.at([]))).toBeTruthy(true);
-    });
-
-    it('should return the elements corresponding to given keys or indices', function() {
-      expect(_.at([1,2,3,4], 0, 2)).toEqual([1,3]);
-    });
-
-    it('should accept individual arguments as elements to return', function() {
-      expect(_.at([1,2,3,4], 0, 2)).toEqual([1,3]);
-    });
-
-    it('should accept an array as elements to return', function() {
-      expect(_.at([1,2,3,4], [0, 2])).toEqual([1,3]);
-    });
-  });
-  
   describe('_.every', function() {
 
     var predicator = function(value){
