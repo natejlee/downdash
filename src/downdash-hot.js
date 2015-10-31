@@ -1,8 +1,6 @@
 (function(){
   'use strict';
 
-  window._ = {};
-
 /*
   _.chunk
 
